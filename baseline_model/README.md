@@ -24,12 +24,14 @@ cd baseline_model
 uv sync
 ```
 
-2) 在 `projects/Fubon_interview` 下執行：
+2) 在 `projects/Fubon_interview` 下執行（已提供 uv scripts）：
 
 ```bash
-uv run --project baseline_model python baseline_model/run_baseline.py build
-uv run --project baseline_model python baseline_model/run_baseline.py eval
+uv run --project baseline_model build
+uv run --project baseline_model eval
 ```
+
+（若要直接指定 Python 也可用原指令）
 
 3) 產物位置（預設）
 - `baseline_model/artifacts/pages.jsonl`
