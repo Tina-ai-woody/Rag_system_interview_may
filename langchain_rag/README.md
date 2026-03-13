@@ -13,26 +13,20 @@
   - `refusal_confusion_matrix`
   - `citation_coverage`
 
-## 使用
+## 使用（改善後版本）
+
+### 0) 進入專案
 ```bash
-cd langchain_rag
-uv sync
-
-# 建索引
-uv run rag-index
-
-# 單題查詢
-uv run rag-query --question "富邦金控 113 年度合併稅後淨利是多少？"
-
-# 批次評測
-uv run rag-eval
-
-# P0 evaluator 單元測試
-uv run python -m unittest discover -s tests -p 'test_*.py'
+cd /root/.openclaw/workspace/projects/Fubon_interview/langchain_rag
 ```
 
-## 環境變數（自動讀取 .env）
-在 `langchain_rag/.env` 放入：
+### 1) 安裝依賴
+```bash
+uv sync
+```
+
+### 2) 設定 `.env`（只要做一次）
+建立 `langchain_rag/.env`：
 
 ```env
 OPENAI_API_KEY=your_key
@@ -40,4 +34,53 @@ OPENAI_MODEL=gpt-4o-mini
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 ```
 
-程式會自動讀取 `.env`，不需要每次手動 `export`。
+> 程式會自動載入 `.env`，不用手動 `export`。
+
+### 3) 建立索引
+```bash
+uv run rag-index
+```
+
+成功後會看到 chunk 數量（JSON），並建立 Chroma 索引於：
+- `langchain_rag/artifacts/chroma_db`
+
+### 4) 單題測試
+```bash
+uv run rag-query --question "富邦金控 113 年度合併稅後淨利是多少？"
+```
+
+輸出欄位包含：
+- `answer`
+- `refusal`
+- `reason`
+- `sources`
+
+### 5) 跑完整評測（P0 改善版）
+```bash
+uv run rag-eval
+```
+
+主要輸出檔案：
+- `langchain_rag/artifacts/eval_results.json`
+- `langchain_rag/artifacts/eval_summary.json`
+
+`eval_summary.json` 會包含：
+- `accuracy_strict`
+- `accuracy_relaxed`
+- `avg_coverage_score`
+- `refusal_precision`
+- `refusal_recall`
+- `refusal_f1`
+- `refusal_confusion_matrix`
+- `citation_coverage`
+
+### 6) 跑 P0 evaluator 測試
+```bash
+uv run python -m unittest discover -s tests -p 'test_*.py'
+```
+
+## 常見問題
+
+- 若出現 `OPENAI_API_KEY` 相關錯誤：請確認 `.env` 有設定且檔名正確。
+- 若 `rag-query` / `rag-eval` 報索引不存在：先執行 `uv run rag-index`。
+- 若要重建索引：清空 `langchain_rag/artifacts/chroma_db` 後重新 `rag-index`。
