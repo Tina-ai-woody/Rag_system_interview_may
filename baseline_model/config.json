@@ -1,5 +1,5 @@
 {
-  "annual_report_pdf": "requirements/富邦金控數據科學組_簡報專題.pdf",
+  "annual_report_pdf": "requirements/富邦年報.pdf",
   "qa_xlsx": "requirements/題目一_附件_問答集.xlsx",
   "artifacts_dir": "baseline_model/artifacts",
   "chunk_size": 800,
