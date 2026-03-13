@@ -15,21 +15,20 @@
 - `rag_pipeline.py`：核心流程（抽取、索引、檢索、回答、評測）
 - `run_baseline.py`：CLI 入口
 
-## 使用方式
+## 使用方式（uv）
 
-1) 建議在專案根目錄建立虛擬環境並安裝 `pypdf`：
+1) 進入 baseline_model 後安裝相依套件（首次）
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install pypdf
+cd baseline_model
+uv sync
 ```
 
 2) 在 `projects/Fubon_interview` 下執行：
 
 ```bash
-python3 baseline_model/run_baseline.py build
-python3 baseline_model/run_baseline.py eval
+uv run --project baseline_model python baseline_model/run_baseline.py build
+uv run --project baseline_model python baseline_model/run_baseline.py eval
 ```
 
 3) 產物位置（預設）
