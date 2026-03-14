@@ -282,3 +282,19 @@
 - **準確性**：hard facts 維持嚴謹，語義題判定更貼近人工
 - **可解釋性**：每題可看規則、語義、相似度三種視角
 - **可迭代性**：後續 P1/P2/P3 優化可被更精準地量測與定位
+
+---
+
+## 12) 實作狀態（2026-03-14）
+
+已完成並落地於 `langchain_rag`：
+
+- ✅ P0-v2-1：題型分類器（`classify_question_type`）
+- ✅ P0-v2-2：Layer1 介面標準化（新增 `rule_judge` 區塊）
+- ✅ P0-v2-3：LLM Judge 模組（含 JSON parser / 失敗 fallback / 一次重試）
+- ✅ P0-v2-4：Similarity 診斷模組（ans-gold / ans-question / ans-evidence）
+- ✅ P0-v2-5：Final label 聚合器（hard-fact 不可被語義覆蓋）
+- ✅ P0-v2-6：輸出格式升級（results + summary 三層欄位，並保留舊欄位）
+- ✅ P0-v2-7：單元測試與回歸測試
+  - 測試檔：`tests/test_three_layer_eval.py`
+  - 與既有 `test_evaluator.py` 一起通過（共 12 tests）

@@ -5,5 +5,10 @@
   "chunk_size": 1000,
   "chunk_overlap": 200,
   "k": 5,
-  "refusal_text": "根據目前提供之富邦 113 年報資料，無法找到直接可驗證的答案，因此不進行推論。"
+  "refusal_text": "根據目前提供之富邦 113 年報資料，無法找到直接可驗證的答案，因此不進行推論。",
+  "eval": {
+    "llm_judge_enable_types": ["summary_strategy", "multi_fact"],
+    "llm_judge_sample_rate": 1.0,
+    "similarity_enabled": true
+  }
 }
