@@ -216,3 +216,17 @@
 - 能可靠反映數值題真實表現
 - 避免把明顯錯誤（如年份錯）判成正確
 - 為 P1（Hybrid + Rerank）提供乾淨、可信的比較基線
+
+---
+
+## 10) 實作狀態（2026-03-14）
+
+已完成並落地於 `langchain_rag`：
+
+- ✅ `extract_typed_numeric_facts`（型別化數值抽取）
+- ✅ `compare_numeric_facts`（type-aware comparator）
+- ✅ Unit guard（含 `allow_unitless_currency_match=false` 預設保守策略）
+- ✅ 多數值 all-match（未全命中時回傳 `partial_numeric_match`）
+- ✅ reason codes 細化（含 `numeric_mismatch_year` / `missing_unit_guard` 等）
+- ✅ 每題輸出新增 `failed_numeric_facts`、`numeric_match_detail`
+- ✅ 單元測試通過（7 tests）

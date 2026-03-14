@@ -47,6 +47,11 @@ def eval_cmd() -> None:
                 "is_correct_relaxed": jr.is_correct_relaxed,
                 "coverage_score": jr.coverage_score,
                 "judge_reason_codes": jr.reason_codes,
+                "failed_numeric_facts": jr.failed_numeric_facts,
+                "numeric_match_detail": {
+                    "failed_count": len(jr.failed_numeric_facts),
+                    "all_numeric_matched": len(jr.failed_numeric_facts) == 0,
+                },
             }
         )
 
