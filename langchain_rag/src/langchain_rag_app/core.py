@@ -12,6 +12,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from .gate import analyze_evidence, extract_question_signals, run_evidence_gate
 from .retrieval import BM25Index, RetrievalCandidate, rerank_candidates, rrf_fusion
 
 
@@ -177,11 +178,16 @@ def retrieve_with_pipeline(query: str, cfg: dict[str, Any]) -> tuple[list[Retrie
     return final_docs, debug
 
 
-def answer_question(question: str) -> dict[str, Any]:
+def answer_question(question: str, question_type: str = "") -> dict[str, Any]:
     cfg = load_config()
     candidates, retrieval_debug = retrieve_with_pipeline(question, cfg)
 
     if not candidates:
+        signals = extract_question_signals(question, question_type)
+        evidence = analyze_evidence(signals, "", [])
+        gate = run_evidence_gate(signals, evidence, cfg)
+        gate["decision"] = "force_refusal"
+        gate.setdefault("reasons", []).append("no_retrieved_context")
         return {
             "answer": cfg["refusal_text"],
             "refusal": True,
@@ -189,6 +195,7 @@ def answer_question(question: str) -> dict[str, Any]:
             "sources": [],
             "retrieval_debug": retrieval_debug,
             "evidence_text": "",
+            "gate": gate,
         }
 
     context = "\n\n".join([c.content for c in candidates])
@@ -213,13 +220,28 @@ def answer_question(question: str) -> dict[str, Any]:
             "reason": "invalid model json",
         }
 
+    signals = extract_question_signals(question, question_type)
+    evidence = analyze_evidence(signals, context, pages)
+    gate = run_evidence_gate(signals, evidence, cfg)
+
+    refusal = bool(parsed.get("refusal", False))
+    answer = parsed.get("answer", cfg["refusal_text"])
+    reason = parsed.get("reason", "")
+
+    if gate.get("decision") == "force_refusal":
+        refusal = True
+        answer = cfg["refusal_text"]
+        if gate.get("reasons"):
+            reason = f"gate_force_refusal:{','.join(gate.get('reasons', []))}"
+
     return {
-        "answer": parsed.get("answer", cfg["refusal_text"]),
-        "refusal": bool(parsed.get("refusal", False)),
-        "reason": parsed.get("reason", ""),
+        "answer": answer,
+        "refusal": refusal,
+        "reason": reason,
         "sources": pages,
         "retrieval_debug": retrieval_debug,
         "evidence_text": context,
+        "gate": gate,
     }
 
 

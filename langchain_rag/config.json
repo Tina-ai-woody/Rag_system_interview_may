@@ -14,8 +14,8 @@
   },
   "rerank": {
     "enabled": true,
-    "type": "heuristic",
-    "top_k": 6,
+    "type": "cross_encoder",
+    "top_k": 8,
     "candidate_pool": 12,
     "heuristic": {
       "year_bonus": 0.1
@@ -32,5 +32,15 @@
     "llm_judge_enable_types": ["summary_strategy", "multi_fact"],
     "llm_judge_sample_rate": 1.0,
     "similarity_enabled": true
+  },
+  "gate": {
+    "enabled": true,
+    "min_subquestion_coverage": 0.8,
+    "min_evidence_confidence": 0.6,
+    "hard_rules": {
+      "require_entity_match": true,
+      "require_numeric_evidence_for_hard_fact": true,
+      "block_out_of_scope": true
+    }
   }
 }

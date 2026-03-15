@@ -56,9 +56,9 @@ def eval_cmd() -> None:
     similarity_enabled = bool(eval_cfg.get("similarity_enabled", True))
 
     for row in questions:
-        pred = answer_question(row["question"])
         gold_is_refusal = is_refusal_gold(row["gold_answer"])
         qtype = classify_question_type(row["question"], row["gold_answer"])
+        pred = answer_question(row["question"], question_type=qtype)
 
         jr = judge_answer(
             pred_answer=pred["answer"],
@@ -147,6 +147,11 @@ def eval_cmd() -> None:
                 "rerank_gain_k": int(final_k_hit) - int(fusion_k_hit),
                 "pipeline_drop_from_20_to_k": int(final_k_hit) - int(retrieval_recall_at_20),
                 "rerank_gain": int(final_k_hit) - int(retrieval_recall_at_20),
+                "gate_decision": pred.get("gate", {}).get("decision", "allow_answer"),
+                "gate_reasons": pred.get("gate", {}).get("reasons", []),
+                "gate_confidence": pred.get("gate", {}).get("evidence_confidence"),
+                "entity_match": pred.get("gate", {}).get("entity_match"),
+                "subquestion_coverage": pred.get("gate", {}).get("subquestion_coverage"),
             }
         )
 

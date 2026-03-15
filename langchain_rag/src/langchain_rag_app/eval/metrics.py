@@ -54,6 +54,16 @@ def summarize_results(results: list[dict]) -> dict:
     rerank_gain = _safe_div(sum(float(r.get("rerank_gain", 0.0)) for r in results), max(total, 1))
     avg_rerank_latency_ms = _safe_div(sum(float(r.get("avg_rerank_latency_ms", 0.0)) for r in results), max(total, 1))
 
+    gate_force_refusal_rate = _safe_div(sum(1 for r in results if r.get("gate_decision") == "force_refusal"), max(total, 1))
+    over_refusal_by_gate = _safe_div(
+        sum(1 for r in results if r.get("gate_decision") == "force_refusal" and not r.get("gold_is_refusal")),
+        max(total, 1),
+    )
+    missed_refusal_after_gate = _safe_div(
+        sum(1 for r in results if r.get("gold_is_refusal") and r.get("gate_decision") != "force_refusal"),
+        max(total, 1),
+    )
+
     # backward-compatible flat keys + new layered blocks
     summary = {
         "total": total,
@@ -90,6 +100,11 @@ def summarize_results(results: list[dict]) -> dict:
             "pipeline_drop_from_20_to_k": round(pipeline_drop_from_20_to_k, 4),
             "rerank_gain": round(rerank_gain, 4),
             "avg_rerank_latency_ms": round(avg_rerank_latency_ms, 3),
+        },
+        "gate": {
+            "gate_force_refusal_rate": round(gate_force_refusal_rate, 4),
+            "over_refusal_by_gate": round(over_refusal_by_gate, 4),
+            "missed_refusal_after_gate": round(missed_refusal_after_gate, 4),
         },
         "final": {
             "final_accuracy": round(_safe_div(final_correct, max(total, 1)), 4),
