@@ -1,0 +1,5 @@
+{
+  "baseline_input": "/root/.openclaw/workspace/projects/Fubon_interview/baseline_model/artifacts/eval_results.jsonl",
+  "langchain_input": "/root/.openclaw/workspace/projects/Fubon_interview/langchain_rag/artifacts/eval_results.json",
+  "judge_source": "langchain_rag_app.eval"
+}

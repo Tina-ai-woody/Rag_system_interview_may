@@ -1,0 +1,180 @@
+{
+  "baseline": {
+    "total": 30,
+    "accuracy": 0.1333,
+    "accuracy_strict": 0.0667,
+    "accuracy_relaxed": 0.1333,
+    "avg_coverage_score": 0.1444,
+    "citation_coverage": 1.0,
+    "refusal_precision": 0.0,
+    "refusal_recall": 0.0,
+    "refusal_f1": 0.0,
+    "refusal_confusion_matrix": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 2,
+      "tn": 28
+    },
+    "layer1": {
+      "accuracy_strict": 0.0667,
+      "accuracy_relaxed": 0.1333
+    },
+    "layer2": {
+      "semantic_pass_rate": 0.0,
+      "avg_semantic_score": 0.0,
+      "avg_completeness_score": 0.0,
+      "avg_faithfulness_score": 0.0
+    },
+    "layer3": {
+      "avg_ans_gold_sim": 0.0,
+      "avg_ans_q_sim": 0.0,
+      "avg_ans_evidence_sim": 0.0
+    },
+    "retrieval": {
+      "retrieval_recall_at_20": 0.0,
+      "fusion_k_hit_rate": 0.0,
+      "final_k_hit_rate": 0.0,
+      "final_context_hit_rate": 0.0,
+      "avg_rerank_gain_k": 0.0,
+      "pipeline_drop_from_20_to_k": 0.0,
+      "rerank_gain": 0.0,
+      "avg_rerank_latency_ms": 0.0
+    },
+    "gate": {
+      "gate_force_refusal_rate": 0.0,
+      "over_refusal_by_gate": 0.0,
+      "missed_refusal_after_gate": 0.0667
+    },
+    "final": {
+      "final_accuracy": 0.1333,
+      "hard_fact_accuracy": 0.1818,
+      "semantic_task_pass": 0.0,
+      "semantic_task_pass_summary": 0.0,
+      "semantic_task_pass_multifact": 0.0,
+      "semantic_rule_conflict_rate": 0.0
+    }
+  },
+  "langchain": {
+    "total": 30,
+    "accuracy": 0.5667,
+    "accuracy_strict": 0.2333,
+    "accuracy_relaxed": 0.5667,
+    "avg_coverage_score": 0.5889,
+    "citation_coverage": 1.0,
+    "refusal_precision": 0.25,
+    "refusal_recall": 0.5,
+    "refusal_f1": 0.3333,
+    "refusal_confusion_matrix": {
+      "tp": 1,
+      "fp": 3,
+      "fn": 1,
+      "tn": 25
+    },
+    "layer1": {
+      "accuracy_strict": 0.2333,
+      "accuracy_relaxed": 0.5667
+    },
+    "layer2": {
+      "semantic_pass_rate": 0.0,
+      "avg_semantic_score": 0.0,
+      "avg_completeness_score": 0.0,
+      "avg_faithfulness_score": 0.0
+    },
+    "layer3": {
+      "avg_ans_gold_sim": 0.0,
+      "avg_ans_q_sim": 0.0,
+      "avg_ans_evidence_sim": 0.0
+    },
+    "retrieval": {
+      "retrieval_recall_at_20": 0.0,
+      "fusion_k_hit_rate": 0.0,
+      "final_k_hit_rate": 0.0,
+      "final_context_hit_rate": 0.0,
+      "avg_rerank_gain_k": 0.0,
+      "pipeline_drop_from_20_to_k": 0.0,
+      "rerank_gain": 0.0,
+      "avg_rerank_latency_ms": 0.0
+    },
+    "gate": {
+      "gate_force_refusal_rate": 0.0,
+      "over_refusal_by_gate": 0.0,
+      "missed_refusal_after_gate": 0.0667
+    },
+    "final": {
+      "final_accuracy": 0.5,
+      "hard_fact_accuracy": 0.6818,
+      "semantic_task_pass": 0.25,
+      "semantic_task_pass_summary": 0.0,
+      "semantic_task_pass_multifact": 0.4,
+      "semantic_rule_conflict_rate": 0.0
+    }
+  },
+  "comparison": [
+    {
+      "metric": "accuracy_strict",
+      "baseline": 0.0667,
+      "langchain": 0.2333,
+      "delta": 0.16660000000000003
+    },
+    {
+      "metric": "accuracy_relaxed",
+      "baseline": 0.1333,
+      "langchain": 0.5667,
+      "delta": 0.4334
+    },
+    {
+      "metric": "final.final_accuracy",
+      "baseline": 0.1333,
+      "langchain": 0.5,
+      "delta": 0.3667
+    },
+    {
+      "metric": "refusal_precision",
+      "baseline": 0.0,
+      "langchain": 0.25,
+      "delta": 0.25
+    },
+    {
+      "metric": "refusal_recall",
+      "baseline": 0.0,
+      "langchain": 0.5,
+      "delta": 0.5
+    },
+    {
+      "metric": "refusal_f1",
+      "baseline": 0.0,
+      "langchain": 0.3333,
+      "delta": 0.3333
+    },
+    {
+      "metric": "avg_coverage_score",
+      "baseline": 0.1444,
+      "langchain": 0.5889,
+      "delta": 0.4445
+    },
+    {
+      "metric": "final.semantic_task_pass",
+      "baseline": 0.0,
+      "langchain": 0.25,
+      "delta": 0.25
+    },
+    {
+      "metric": "retrieval.retrieval_recall_at_20",
+      "baseline": 0.0,
+      "langchain": 0.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "retrieval.final_k_hit_rate",
+      "baseline": 0.0,
+      "langchain": 0.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "retrieval.avg_rerank_gain_k",
+      "baseline": 0.0,
+      "langchain": 0.0,
+      "delta": 0.0
+    }
+  ]
+}
