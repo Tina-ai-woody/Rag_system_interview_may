@@ -101,7 +101,27 @@ uv run python scripts/run_rerank_experiments.py --project-dir . --top-n 3
 - `artifacts/experiments/<run_id>/results.json`
 - `artifacts/experiments/latest_summary.csv`
 
-### 6) 跑 P0 evaluator 測試
+## Cross-system 評測（Baseline vs LangChain）
+依 `implementation_plan/cross_system_eval.md`，可用同一套 judge/metrics 比較兩系統。
+
+### 執行方式
+在 `langchain_rag` 目錄下執行：
+
+```bash
+# 會先跑一次最新 langchain rag-eval，再做 cross-system 統一評測
+uv run python ../scripts/run_cross_system_eval.py --project-root .. --run-langchain-eval
+```
+
+### 輸出檔案
+- `../baseline_model/artifacts/eval_results.json`
+- `../baseline_model/artifacts/eval_summary.json`
+- `./artifacts/eval_results_unified.json`
+- `./artifacts/eval_summary_unified.json`
+- `../artifacts/cross_system/comparison_report.json`
+- `../artifacts/cross_system/comparison_report.md`
+- `../artifacts/cross_system/run_<timestamp>/...`（含 snapshot）
+
+### 6) 跑單元測試
 ```bash
 uv run python -m unittest discover -s tests -p 'test_*.py'
 ```
