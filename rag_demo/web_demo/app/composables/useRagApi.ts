@@ -8,7 +8,7 @@ export function useRagApi() {
     })
 
   const buildIndex = () =>
-    $fetch<RagIndexResponse>('/api/rag/index', {
+    $fetch<RagIndexResponse>('/api/rag/build-index', {
       method: 'POST',
     })
 
